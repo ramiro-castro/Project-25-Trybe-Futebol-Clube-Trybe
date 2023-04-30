@@ -17,6 +17,7 @@
     "ecmaVersion": 2019,
     "sourceType": "module",
     "project": "./tsconfig.json"
+	
   },
   "plugins": [
     "@typescript-eslint",
