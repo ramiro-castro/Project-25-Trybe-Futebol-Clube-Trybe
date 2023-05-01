@@ -8,8 +8,20 @@ const TeamController = {
 
   async getAll(req: Request, res: Response) {
     try {
-      const dataOrders = await TeamService.getAll();
-      res.status(statusCodes.ok).json(dataOrders);
+      const dataTeams = await TeamService.getAll();
+      return res.status(statusCodes.ok).json(dataTeams);
+    } catch (error) {
+      res.status(statusCodes.serverError).json({ error });
+    }
+  },
+
+  async getById(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const team = await TeamService.getById(id);
+      //   console.log(team);
+      return res.status(statusCodes.ok).json(team);
     } catch (error) {
       res.status(statusCodes.serverError).json({ error });
     }
