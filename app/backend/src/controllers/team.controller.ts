@@ -7,12 +7,8 @@ import statusCodes from '../utils/statusCodes';
 const TeamController = {
 
   async getAll(req: Request, res: Response) {
-    try {
-      const dataTeams = await TeamService.getAll();
-      return res.status(statusCodes.ok).json(dataTeams);
-    } catch (error) {
-      res.status(statusCodes.serverError).json({ error });
-    }
+    const dataTeams = await TeamService.getAll();
+    return res.status(statusCodes.ok).json(dataTeams);
   },
 
   async getById(req: Request, res: Response) {
