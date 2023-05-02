@@ -68,7 +68,7 @@ describe('Testando com sucesso a rota teams', () => {
 	  })
      
 	  it('testando se o endpoint /teams/:id no back-end pode lidar com erros corretamente', async () => {
-		chaiHttpResponse = await chai.request(app).get('/teams/1');
+		chaiHttpResponse = await chai.request(app).get('/teams/4');
 		expect(chaiHttpResponse.status).to.be.eq(statusCodes.serverError);
 	  });
 	  // feito com auxilio de: https://trybecourse.slack.com/archives/C027T2VU8U8/p1651434585504449
