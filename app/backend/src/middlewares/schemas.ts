@@ -1,6 +1,10 @@
-// import * as Joi from 'joi';
+import * as Joi from 'joi';
 
-// const addUserPassword = Joi.object({
-//   username: Joi.string().required(),
-//   password: Joi.string().required(),
-// });
+const emailPassword = Joi.object({
+  email: Joi.string().regex(/^\S+@\S+\.\S+$/).required(),
+  password: Joi.string().min(6).required(),
+});
+
+export default {
+  emailPassword,
+};
