@@ -18,3 +18,10 @@ export interface UserConfidentialInterface extends UserInterface {
 export interface LoginInterface {
   email: string
 }
+
+export interface decodedInterface {
+  id: number
+  email: string
+  role: string
+  username: string
+}

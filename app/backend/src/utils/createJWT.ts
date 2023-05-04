@@ -8,7 +8,7 @@ const jwtConfig: Jwt.SignOptions = {
   algorithm: 'HS256',
 };
 
-const jwtSecret = 'jwt_secret';
+const jwtSecret = process.env.JWT_SECRET || 'jwt_secret';
 // if (!jwtSecret) throw new Error('JWT_SECRET not found');
 
 const createJWT = async (payload: object) => Jwt.sign({ payload }, jwtSecret, jwtConfig);

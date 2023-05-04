@@ -31,16 +31,17 @@ const validateLoginData = (loginData: unknown) => {
 const decryptToken = async (token: string) => {
   const secret = 'jwt_secret';
 
-  const checkToken = Jwt.verify(token, secret, (err, decoded) => {
-    if (err) {
+  const checkToken: unknown = Jwt.verify(token, secret, (err, decoded) => {
+    if (err || decoded === undefined) {
       return null;
     }
-    return decoded;
+    return decoded.payload;
   });
 
   if (checkToken === null) {
     return { type: statusCodes.unauthorized, message: 'Token must be a valid token' };
   }
+
   return { type: null, message: checkToken };
 };
 
