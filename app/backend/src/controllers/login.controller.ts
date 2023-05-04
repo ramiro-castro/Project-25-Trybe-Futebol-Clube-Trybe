@@ -13,8 +13,7 @@ const LoginController = {
       const loginData = req.body;
       const checkLoginData = validationsInputValues.validateLoginData(loginData);
       if (checkLoginData.type) {
-        res.status(checkLoginData.type).json({ message: checkLoginData.message });
-        return;
+        return res.status(checkLoginData.type).json({ message: checkLoginData.message });
       }
       const dataUser = await LoginServices.login(loginData.email);
       if (!dataUser) return res.status(401).json({ message: 'Invalid email or password' });
