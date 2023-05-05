@@ -1,4 +1,4 @@
-import Team from '../database/models/team.model';
+import Team from '../database/models/teams.model';
 import { TeamInterface } from '../interfaces/all.interfaces';
 
 const TeamService = {

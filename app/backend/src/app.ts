@@ -1,5 +1,5 @@
 import * as express from 'express';
-import TeamRouters from './routers/team.routers';
+import TeamRouters from './routers/teams.routers';
 import LoginRouters from './routers/login.routers';
 
 class App {

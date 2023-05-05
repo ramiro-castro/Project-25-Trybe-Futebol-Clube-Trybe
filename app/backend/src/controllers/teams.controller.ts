@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 // import { UserJwt } from '../interfaces/all.interfaces';
 // import validationsInputValues from '../middlewares/validationsInputValues';
-import TeamService from '../services/team.service';
+import TeamService from '../services/teams.service';
 import statusCodes from '../utils/statusCodes';
 
 const TeamController = {
