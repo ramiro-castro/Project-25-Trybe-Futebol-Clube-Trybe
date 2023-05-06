@@ -35,6 +35,26 @@ const MatchesController = {
     }
   },
 
+  async getByIdUpdateGoals(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { homeTeamGoals, awayTeamGoals } = req.body;
+
+      const token = req.headers.authorization || '';
+
+      const resultCheckToken = await validationsInputValues.checkToken(token);
+      if (resultCheckToken.type) {
+        return res.status(resultCheckToken.type).json({ message: resultCheckToken.message });
+      }
+
+      const result = await MatchesService.getByIdUpdateGoals(id, homeTeamGoals, awayTeamGoals);
+      //   console.log(team);
+      return res.status(statusCodes.ok).json(result);
+    } catch (error) {
+      res.status(statusCodes.serverError).json({ error });
+    }
+  },
+
 };
 
 export default MatchesController;
