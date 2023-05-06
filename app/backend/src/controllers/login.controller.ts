@@ -32,18 +32,14 @@ const LoginController = {
   },
   async loginRole(req: Request, res: Response) {
     try {
-      const token = req.headers.authorization;
-      if (!token) {
-        return res.status(statusCodes.unauthorized).json({ message: 'Token not found' });
+      const token = req.headers.authorization || '';
+
+      const resultCheckToken = await validationsInputValues.checkToken(token);
+      if (resultCheckToken.type) {
+        return res.status(resultCheckToken.type).json({ message: resultCheckToken.message });
       }
 
-      const decoded = await validationsInputValues.decryptToken(token);
-      const { message } = decoded;
-      if (decoded.type) {
-        return res.status(decoded.type).json({ message });
-      }
-
-      const email = (message as { email?: string }).email ?? 'valor_padrao';
+      const email = (resultCheckToken.message as { email?: string }).email || '';
 
       const { role } = await LoginServices.login(email);
 

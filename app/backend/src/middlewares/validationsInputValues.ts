@@ -31,18 +31,29 @@ const validateLoginData = (loginData: unknown) => {
 const decryptToken = async (token: string) => {
   const secret = 'jwt_secret';
 
-  const checkToken: unknown = Jwt.verify(token, secret, (err, decoded) => {
+  const validaToken: unknown = Jwt.verify(token, secret, (err, decoded) => {
     if (err || decoded === undefined) {
       return null;
     }
     return decoded.payload;
   });
 
-  if (checkToken === null) {
+  if (validaToken === null) {
     return { type: statusCodes.unauthorized, message: 'Token must be a valid token' };
   }
 
-  return { type: null, message: checkToken };
+  return { type: null, message: validaToken };
+};
+
+const checkToken = async (token: string) => {
+  if (token === '') {
+    return { type: statusCodes.unauthorized, message: 'Token not found' };
+  }
+  const decoded = await decryptToken(token);
+  if (decoded.type) {
+    return { type: decoded.type, message: decoded.message };
+  }
+  return { type: null, message: decoded.message };
 };
 
 const decryptPassword = (password: string, hash: string) => {
@@ -57,4 +68,5 @@ export default {
   validateLoginData,
   decryptToken,
   decryptPassword,
+  checkToken,
 };
