@@ -8,7 +8,10 @@ import statusCodes from '../utils/statusCodes';
 const MatchesController = {
 
   async getAll(req: Request, res: Response) {
-    const dataMatches = await MatchesService.getAll();
+    const { inProgress } = req.query;
+    const auxInProgress = typeof inProgress === 'string'
+      ? JSON.parse(inProgress) : undefined;
+    const dataMatches = await MatchesService.getAll(auxInProgress);
     return res.status(statusCodes.ok).json(dataMatches);
   },
 

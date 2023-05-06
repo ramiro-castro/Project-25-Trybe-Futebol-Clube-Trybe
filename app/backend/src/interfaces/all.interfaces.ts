@@ -31,3 +31,7 @@ export interface ExtendsMatchesInterface extends MatchesInterface {
   homeTeam: { teamName: string }
   awayTeam: { teamName: string }
 }
+
+export interface whereInProgress {
+  inProgress: unknown
+}

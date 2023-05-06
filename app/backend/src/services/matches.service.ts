@@ -5,12 +5,14 @@ import Team from '../database/models/teams.model';
 
 const MatchesService = {
 
-  async getAll(): Promise<MatchesInterface[]> {
+  async getAll(inProgress: unknown): Promise<MatchesInterface[]> {
+    const where = inProgress !== undefined ? { inProgress } : {};
     const data = await Matches.findAll({
       include: [
         { model: Team, as: 'homeTeam', attributes: ['teamName'] },
         { model: Team, as: 'awayTeam', attributes: ['teamName'] },
       ],
+      where,
     });
 
     return data;
