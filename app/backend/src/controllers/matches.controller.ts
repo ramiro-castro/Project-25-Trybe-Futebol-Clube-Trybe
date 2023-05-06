@@ -55,6 +55,27 @@ const MatchesController = {
     }
   },
 
+  async insert(req: Request, res: Response) {
+    try {
+    //   const { id } = req.params;
+      const dataInsert = req.body;
+      dataInsert.inProgress = true;
+
+      const token = req.headers.authorization || '';
+
+      const resultCheckToken = await validationsInputValues.checkToken(token);
+      if (resultCheckToken.type) {
+        return res.status(resultCheckToken.type).json({ message: resultCheckToken.message });
+      }
+
+      const result = await MatchesService.insert(dataInsert);
+      //   console.log(team);
+      return res.status(statusCodes.created).json(result);
+    } catch (error) {
+      res.status(statusCodes.serverError).json({ error });
+    }
+  },
+
 };
 
 export default MatchesController;
