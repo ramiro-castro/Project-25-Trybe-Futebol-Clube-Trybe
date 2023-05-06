@@ -46,21 +46,22 @@ const MatchesService = {
       { where },
     );
 
-    const data = await Matches.findAll({
-      include: [
-        { model: Team, as: 'homeTeam', attributes: ['teamName'] },
-        { model: Team, as: 'awayTeam', attributes: ['teamName'] },
-      ],
-      where,
-    });
+    // const data = await Matches.findAll({
+    //   include: [
+    //     { model: Team, as: 'homeTeam', attributes: ['teamName'] },
+    //     { model: Team, as: 'awayTeam', attributes: ['teamName'] },
+    //   ],
+    //   where,
+    // });
 
     // data.inProgress = false;
 
-    return data;
+    return { message: 'Updated' };
   },
 
   async insert(dataInsert: MatchesInterface) {
     // const where = id !== undefined ? { id } : {};
+
     const data = await Matches.create(
       {
         homeTeamId: dataInsert.homeTeamId,
@@ -78,8 +79,6 @@ const MatchesService = {
     //   ],
     // //   where,
     // });
-
-    // data.inProgress = false;
 
     return data;
   },

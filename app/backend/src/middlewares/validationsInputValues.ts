@@ -2,6 +2,7 @@ import * as Jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import schemas from './schemas';
 import statusCodes from '../utils/statusCodes';
+import TeamService from '../services/teams.service';
 
 const emailEmptyMessage = '"email" is not allowed to be empty';
 const emailInvalidMessage = '"email" must be a valid email';
@@ -64,9 +65,29 @@ const decryptPassword = (password: string, hash: string) => {
   return null;
 };
 
+const checkTeam = async (awayTeamId: number, homeTeamId: number) => {
+  if (homeTeamId === awayTeamId) {
+    return {
+      type: statusCodes.unprocessableContent,
+      message: 'It is not possible to create a match with two equal teams' };
+  }
+
+  const existAwayTeam = await TeamService.getById(awayTeamId);
+  const existHomeTeam = await TeamService.getById(homeTeamId);
+
+  if (!existAwayTeam || !existHomeTeam) {
+    return {
+      type: statusCodes.notFound,
+      message: 'There is no team with such id!' };
+  }
+
+  return { type: null, message: '' };
+};
+
 export default {
   validateLoginData,
   decryptToken,
   decryptPassword,
   checkToken,
+  checkTeam,
 };

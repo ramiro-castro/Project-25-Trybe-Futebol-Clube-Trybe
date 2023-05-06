@@ -68,6 +68,12 @@ const MatchesController = {
         return res.status(resultCheckToken.type).json({ message: resultCheckToken.message });
       }
 
+      const resultCheckTeam = await validationsInputValues
+        .checkTeam(dataInsert.homeTeamId, dataInsert.awayTeamId);
+      if (resultCheckTeam.type) {
+        return res.status(resultCheckTeam.type).json({ message: resultCheckTeam.message });
+      }
+
       const result = await MatchesService.insert(dataInsert);
       //   console.log(team);
       return res.status(statusCodes.created).json(result);

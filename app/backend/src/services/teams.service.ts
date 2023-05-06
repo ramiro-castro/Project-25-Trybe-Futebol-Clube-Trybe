@@ -7,7 +7,7 @@ const TeamService = {
     console.log(data);
     return data;
   },
-  async getById(id: string): Promise<TeamInterface | null> {
+  async getById(id: number): Promise<TeamInterface | null> {
     const data = await Team.findByPk(id);
     // console.log(data);
     return data;
