@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import LeaderboardService from '../services/leaderboard.service';
+import LeaderboardServiceHome from '../services/leaderboardHome.service';
+import LeaderboardServiceAway from '../services/leaderboardAway.service';
 // import { UserJwt } from '../interfaces/all.interfaces';
 // import validationsInputValues from '../middlewares/validationsInputValues';
 // import TeamService from '../services/teams.service';
@@ -8,7 +9,12 @@ import statusCodes from '../utils/statusCodes';
 const LeaderboardController = {
 
   async getAllLeaderboardHome(req: Request, res: Response) {
-    const dataTeams = await LeaderboardService.getAllLeaderboardHome();
+    const dataTeams = await LeaderboardServiceHome.getAllLeaderboardHome();
+    return res.status(statusCodes.ok).json(dataTeams);
+  },
+
+  async getAllLeaderboardAway(req: Request, res: Response) {
+    const dataTeams = await LeaderboardServiceAway.getAllLeaderboardAway();
     return res.status(statusCodes.ok).json(dataTeams);
   },
 

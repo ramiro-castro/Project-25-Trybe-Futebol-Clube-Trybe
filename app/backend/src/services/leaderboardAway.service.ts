@@ -4,15 +4,15 @@ import Team from '../database/models/teams.model';
 // import { MatchesInterface, TeamInterface } from '../interfaces/all.interfaces';
 // import MatchesService from './matches.service';
 
-const LeaderboardService = {
-  async getAllHome(id: number) : Promise<MatchesInstance[]> {
+const LeaderboardServiceAway = {
+  async getAllAway(id: number) : Promise<MatchesInstance[]> {
     const where = {
       inProgress: false,
-      homeTeamId: id,
+      awayTeamId: id,
     };
     const data = await Matches.findAll({
       include: [
-        { model: Team, as: 'homeTeam', attributes: ['teamName'] },
+        { model: Team, as: 'awayTeam', attributes: ['teamName'] },
       ],
       where,
     });
@@ -27,13 +27,13 @@ const LeaderboardService = {
 
     teams.forEach((team) => {
       obj.totalGames += 1;
-      obj.totalVictories += team.homeTeamGoals > team.awayTeamGoals ? 1 : 0;
+      obj.totalVictories += team.homeTeamGoals < team.awayTeamGoals ? 1 : 0;
       obj.totalDraws += team.homeTeamGoals === team.awayTeamGoals ? 1 : 0;
-      obj.totalLosses += team.homeTeamGoals < team.awayTeamGoals ? 1 : 0;
-      obj2.goalsFavor += team.homeTeamGoals;
-      obj2.goalsOwn += team.awayTeamGoals;
-      obj2.goalsBalance += team.homeTeamGoals - team.awayTeamGoals;
-      obj.totalPoints += team.homeTeamGoals > team.awayTeamGoals ? 3 : 0;
+      obj.totalLosses += team.homeTeamGoals > team.awayTeamGoals ? 1 : 0;
+      obj2.goalsFavor += team.awayTeamGoals;
+      obj2.goalsOwn += team.homeTeamGoals;
+      obj2.goalsBalance += team.awayTeamGoals - team.homeTeamGoals;
+      obj.totalPoints += team.homeTeamGoals < team.awayTeamGoals ? 3 : 0;
     });
 
     obj.totalPoints += obj.totalDraws;
@@ -43,17 +43,17 @@ const LeaderboardService = {
     return resultValues;
   },
 
-  async processLeaderboardHome() {
+  async processLeaderboardAway() {
     // const dataTeams = await Team.findAll();
     // const dataMatches = await LeaderboardService.getAllHome(true);
 
     const dataTeamsMatch = await Promise.all((await Team.findAll())
-      .map(async ({ id }) => LeaderboardService.getAllHome(id)));
+      .map(async ({ id }) => LeaderboardServiceAway.getAllAway(id)));
 
     const dataValues = dataTeamsMatch.map((teams) => {
-      const name = teams[0].homeTeam.teamName;
+      const name = teams[0].awayTeam.teamName;
 
-      const newValues = LeaderboardService.calculateValues(teams);
+      const newValues = LeaderboardServiceAway.calculateValues(teams);
       const data = { name, ...newValues };
       return data;
     });
@@ -61,11 +61,11 @@ const LeaderboardService = {
     return dataValues;
   },
 
-  async getAllLeaderboardHome() {
+  async getAllLeaderboardAway() {
     // const dataTeams = await Team.findAll();
     // const dataMatches = await LeaderboardService.getAllHome(true);
 
-    const data = await LeaderboardService.processLeaderboardHome();
+    const data = await LeaderboardServiceAway.processLeaderboardAway();
 
     return data.sort((a, b) => {
       // Critério de ordenação: pontos
@@ -89,4 +89,4 @@ const LeaderboardService = {
 
 };
 
-export default LeaderboardService;
+export default LeaderboardServiceAway;
