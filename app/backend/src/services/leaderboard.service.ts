@@ -43,14 +43,14 @@ const LeaderboardService = {
     return resultValues;
   },
 
-  async getAllLeaderboardHome() {
+  async processLeaderboardHome() {
     // const dataTeams = await Team.findAll();
     // const dataMatches = await LeaderboardService.getAllHome(true);
 
     const dataTeamsMatch = await Promise.all((await Team.findAll())
       .map(async ({ id }) => LeaderboardService.getAllHome(id)));
 
-    const dataTeamsMatch2 = dataTeamsMatch.map((teams) => {
+    const dataValues = dataTeamsMatch.map((teams) => {
       const name = teams[0].homeTeam.teamName;
 
       const newValues = LeaderboardService.calculateValues(teams);
@@ -58,7 +58,33 @@ const LeaderboardService = {
       return data;
     });
 
-    return dataTeamsMatch2;
+    return dataValues;
+  },
+
+  async getAllLeaderboardHome() {
+    // const dataTeams = await Team.findAll();
+    // const dataMatches = await LeaderboardService.getAllHome(true);
+
+    const data = await LeaderboardService.processLeaderboardHome();
+
+    return data.sort((a, b) => {
+      // Critério de ordenação: pontos
+      if (a.totalPoints !== b.totalPoints) {
+        return b.totalPoints - a.totalPoints; // ordenação decrescente
+      }
+
+      // Critério de desempate: saldo de gols
+      if (a.totalVictories !== b.totalVictories) {
+        return b.totalVictories - a.totalVictories; // ordenação decrescente
+      }
+
+      if (a.goalsBalance !== b.goalsBalance) {
+        return b.goalsBalance - a.goalsBalance;
+      }
+
+      // Critério de desempate: número de gols marcados
+      return b.goalsFavor - a.goalsFavor; // ordenação decrescente
+    });
   },
 
 };
