@@ -69,6 +69,4 @@ export interface teamLeaderboard {
   homeTeamGoals: number
   awayTeamGoals: number
   inProgress: boolean
-//   homeTeam: Team
-//   awayTeam: Team
 }

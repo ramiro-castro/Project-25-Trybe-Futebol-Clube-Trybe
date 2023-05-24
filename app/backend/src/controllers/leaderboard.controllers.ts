@@ -2,9 +2,6 @@ import { Request, Response } from 'express';
 import LeaderboardServiceHome from '../services/leaderboardHome.service';
 import LeaderboardServiceAway from '../services/leaderboardAway.service';
 import LeaderboardService from '../services/leaderboard.service';
-// import { UserJwt } from '../interfaces/all.interfaces';
-// import validationsInputValues from '../middlewares/validationsInputValues';
-// import TeamService from '../services/teams.service';
 import statusCodes from '../utils/statusCodes';
 
 const LeaderboardController = {
@@ -23,18 +20,6 @@ const LeaderboardController = {
     const dataTeams = await LeaderboardService.getAllLeaderboard();
     return res.status(statusCodes.ok).json(dataTeams);
   },
-
-  //   async getById(req: Request, res: Response) {
-  //     try {
-  //       const { id } = req.params;
-
-  //       const team = await TeamService.getById(Number(id));
-  //       //   console.log(team);
-  //       return res.status(statusCodes.ok).json(team);
-  //     } catch (error) {
-  //       res.status(statusCodes.serverError).json({ error });
-  //     }
-  //   },
 
 };
 

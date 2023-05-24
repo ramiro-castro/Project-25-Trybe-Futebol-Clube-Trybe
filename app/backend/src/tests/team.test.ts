@@ -4,22 +4,16 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
 import teamExample from '../database/models/teams.model';
 import { Response } from 'superagent';
 
 import statusCodes from '../utils/statusCodes';
-// import TeamService from '../services/team.service';
-// import TeamController from '../controllers/team.controller';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('Testando com sucesso a rota teams', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
 
   let chaiHttpResponse: Response;
 
@@ -38,10 +32,6 @@ describe('Testando com sucesso a rota teams', () => {
 
 
   describe('Testando catch erro de servidor na rota teams/:id', () => {
-	/**
-	 * Exemplo do uso de stubs com tipos
-	 */
-
 	let chaiHttpResponse: Response;
   
 	beforeEach(async () => {

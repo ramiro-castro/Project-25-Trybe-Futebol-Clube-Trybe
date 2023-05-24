@@ -1,8 +1,6 @@
 import { MatchesInstance, teamLeaderboard } from '../interfaces/all.interfaces';
 import Matches from '../database/models/matches.model';
 import Team from '../database/models/teams.model';
-// import { MatchesInterface, TeamInterface } from '../interfaces/all.interfaces';
-// import MatchesService from './matches.service';
 
 const LeaderboardServiceHome = {
   async getAllHome(id: number) : Promise<MatchesInstance[]> {
@@ -21,7 +19,6 @@ const LeaderboardServiceHome = {
   },
 
   calculateValues(teams: teamLeaderboard[]) {
-    // const newValues = { } as valuesLeaderboard;
     const obj = { totalPoints: 0, totalGames: 0, totalVictories: 0, totalDraws: 0, totalLosses: 0 };
     const obj2 = { goalsFavor: 0, goalsOwn: 0, goalsBalance: 0, efficiency: 0 };
 
@@ -44,9 +41,6 @@ const LeaderboardServiceHome = {
   },
 
   async processLeaderboardHome() {
-    // const dataTeams = await Team.findAll();
-    // const dataMatches = await LeaderboardService.getAllHome(true);
-
     const dataTeamsMatch = await Promise.all((await Team.findAll())
       .map(async ({ id }) => LeaderboardServiceHome.getAllHome(id)));
 
@@ -62,9 +56,6 @@ const LeaderboardServiceHome = {
   },
 
   async getAllLeaderboardHome() {
-    // const dataTeams = await Team.findAll();
-    // const dataMatches = await LeaderboardService.getAllHome(true);
-
     const data = await LeaderboardServiceHome.processLeaderboardHome();
 
     return data.sort((a, b) => {

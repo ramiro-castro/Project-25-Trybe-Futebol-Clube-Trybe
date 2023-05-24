@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 import validationsInputValues from '../middlewares/validationsInputValues';
 import MatchesService from '../services/matches.service';
-// import { UserJwt } from '../interfaces/all.interfaces';
-// import validationsInputValues from '../middlewares/validationsInputValues';
-// import TeamService from '../services/teams.service';
 import statusCodes from '../utils/statusCodes';
 
 const MatchesController = {
@@ -28,7 +25,6 @@ const MatchesController = {
       }
 
       const result = await MatchesService.getByIdFinish(id);
-      //   console.log(team);
       return res.status(statusCodes.ok).json(result);
     } catch (error) {
       res.status(statusCodes.serverError).json({ error });
@@ -48,7 +44,6 @@ const MatchesController = {
       }
 
       const result = await MatchesService.getByIdUpdateGoals(id, homeTeamGoals, awayTeamGoals);
-      //   console.log(team);
       return res.status(statusCodes.ok).json(result);
     } catch (error) {
       res.status(statusCodes.serverError).json({ error });
@@ -57,7 +52,6 @@ const MatchesController = {
 
   async insert(req: Request, res: Response) {
     try {
-    //   const { id } = req.params;
       const dataInsert = req.body;
       dataInsert.inProgress = true;
 
@@ -75,7 +69,6 @@ const MatchesController = {
       }
 
       const result = await MatchesService.insert(dataInsert);
-      //   console.log(team);
       return res.status(statusCodes.created).json(result);
     } catch (error) {
       res.status(statusCodes.serverError).json({ error });

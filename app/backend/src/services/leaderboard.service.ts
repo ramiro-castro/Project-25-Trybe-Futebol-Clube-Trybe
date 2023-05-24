@@ -1,13 +1,11 @@
 import LeaderboardServiceHome from './leaderboardHome.service';
 import LeaderboardServiceAway from './leaderboardAway.service';
 import { valuesLeaderboard } from '../interfaces/all.interfaces';
-// import Matches from '../database/models/matches.model';
 import Team from '../database/models/teams.model';
 
 const LeaderboardService = {
 
   calculateValues(teamAway: valuesLeaderboard, teamHome: valuesLeaderboard) {
-    // const newValues = { } as valuesLeaderboard;
     const obj = { totalPoints: 0, totalGames: 0, totalVictories: 0, totalDraws: 0, totalLosses: 0 };
     const obj2 = { goalsFavor: 0, goalsOwn: 0, goalsBalance: 0, efficiency: 0 };
 
@@ -28,11 +26,6 @@ const LeaderboardService = {
 
   async processLeaderboard() {
     const dataTeams = await Team.findAll();
-    // const dataMatches = await LeaderboardService.getAllHome(true);
-
-    // const dataTeamsMatch = await Promise.all((await Team.findAll())
-    //   .map(async ({ id }) => LeaderboardServiceAway.getAllAway(id)));
-
     const dataTeamsAway = await LeaderboardServiceAway.getAllLeaderboardAway();
     const dataTeamHome = await LeaderboardServiceHome.getAllLeaderboardHome();
 
@@ -51,9 +44,6 @@ const LeaderboardService = {
   },
 
   async getAllLeaderboard() {
-    // const dataTeams = await Team.findAll();
-    // const dataMatches = await LeaderboardService.getAllHome(true);
-
     const data = await LeaderboardService.processLeaderboard();
 
     return data.sort((a, b) => {

@@ -39,8 +39,6 @@ const MatchesService = {
   },
 
   async insert(dataInsert: MatchesInterface) {
-    // const where = id !== undefined ? { id } : {};
-
     const data = await Matches.create(
       {
         homeTeamId: dataInsert.homeTeamId,

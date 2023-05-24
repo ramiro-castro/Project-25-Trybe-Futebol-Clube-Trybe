@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
 import createJWT from '../utils/createJWT';
-// import { UserJwt } from '../interfaces/all.interfaces';
-// import { decodedInterface, LoginInterface, UserConfidentialInterface } from '../interfaces/all.interfaces';
 import validationsInputValues from '../middlewares/validationsInputValues';
 import LoginServices from '../services/login.service';
 import statusCodes from '../utils/statusCodes';
