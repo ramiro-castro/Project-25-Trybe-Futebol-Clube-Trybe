@@ -4,7 +4,7 @@ import { TeamInterface } from '../interfaces/all.interfaces';
 const TeamService = {
   async getAll(): Promise<TeamInterface[]> {
     const data = await Team.findAll();
-    console.log(data);
+    // console.log(data);
     return data;
   },
   async getById(id: number): Promise<TeamInterface | null> {

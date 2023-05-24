@@ -1,6 +1,5 @@
 import Matches from '../database/models/matches.model';
 import { MatchesInterface } from '../interfaces/all.interfaces';
-// import TeamService from './teams.service';
 import Team from '../database/models/teams.model';
 
 const MatchesService = {
@@ -25,16 +24,6 @@ const MatchesService = {
       { where },
     );
 
-    // const data = await Matches.findAll({
-    //   include: [
-    //     { model: Team, as: 'homeTeam', attributes: ['teamName'] },
-    //     { model: Team, as: 'awayTeam', attributes: ['teamName'] },
-    //   ],
-    //   where,
-    // });
-
-    // data.inProgress = false;
-
     return { message: 'Finished' };
   },
 
@@ -45,16 +34,6 @@ const MatchesService = {
         awayTeamGoals: upAwayTeamGoals },
       { where },
     );
-
-    // const data = await Matches.findAll({
-    //   include: [
-    //     { model: Team, as: 'homeTeam', attributes: ['teamName'] },
-    //     { model: Team, as: 'awayTeam', attributes: ['teamName'] },
-    //   ],
-    //   where,
-    // });
-
-    // data.inProgress = false;
 
     return { message: 'Updated' };
   },
@@ -71,15 +50,6 @@ const MatchesService = {
         inProgress: dataInsert.inProgress,
       },
     );
-
-    // const data = await Matches.findAll({
-    //   include: [
-    //     { model: Team, as: 'homeTeam', attributes: ['teamName'] },
-    //     { model: Team, as: 'awayTeam', attributes: ['teamName'] },
-    //   ],
-    // //   where,
-    // });
-
     return data;
   },
 };
