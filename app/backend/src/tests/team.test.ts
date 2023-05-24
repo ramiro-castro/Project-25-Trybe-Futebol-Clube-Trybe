@@ -17,6 +17,9 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Testando com sucesso a rota teams', () => {
+  /**
+   * Exemplo do uso de stubs com tipos
+   */
 
   let chaiHttpResponse: Response;
 
@@ -35,8 +38,21 @@ describe('Testando com sucesso a rota teams', () => {
 
 
   describe('Testando catch erro de servidor na rota teams/:id', () => {
+	/**
+	 * Exemplo do uso de stubs com tipos
+	 */
 
 	let chaiHttpResponse: Response;
+  
+	beforeEach(async () => {
+		sinon
+		  .stub(teamExample, "findOne")
+		  .throws(new Error());
+	  });
+	  
+    afterEach(() => {
+	(teamExample.findOne as sinon.SinonStub).restore();
+	})
      
 	  it('testando se o endpoint /teams/:id no back-end pode lidar com erros corretamente', async () => {
 		chaiHttpResponse = await chai.request(app).get('/teams/4');
