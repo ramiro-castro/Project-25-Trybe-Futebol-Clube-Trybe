@@ -1,7 +1,7 @@
 # Trybe Futebol Clube
 
 - O aplicativo TFC é um site informativo sobre partidas e classificações de futebol!
-- Seu projeto teve como proposta a criação de uma API que deveria ser consumida por um front-end já disponibilizado. Para tanto, a criação de um docker-compose foi de suma importância!
+- Esse projeto teve como proposta a criação de uma API que deveria ser consumida por um front-end já disponibilizado. Para tanto, a criação de um docker-compose foi de suma importância!
 
 # Requisitos cumpridos
 
